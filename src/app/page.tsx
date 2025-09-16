@@ -13,7 +13,18 @@ export default function Home() {
       }),
     }).then(res => res.json())
       .then(data => {
-        console.log("Generated product", data);
+        fetch("/api/generate-image", {
+          method: "POST",
+          body: JSON.stringify({
+            imagePrompt: data.imagePrompt,
+          }),
+        }).then(res => res.json())
+          .then(imageData => {
+            console.log("Generated image", imageData);
+          })
+          .catch(error => {
+            console.error("Error generating image", error);
+          });
       })
       .catch(error => {
         console.error("Error generating product", error);

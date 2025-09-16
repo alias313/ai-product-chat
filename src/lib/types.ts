@@ -30,3 +30,7 @@ export interface GenerateProductResponse {
     product: string;
     imagePrompt: GeneratedImage;
 }
+
+export interface GenerateImageRequest {
+    imagePrompt: string;
+}
