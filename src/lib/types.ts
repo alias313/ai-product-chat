@@ -28,5 +28,5 @@ export interface GenerateProductRequest {
 
 export interface GenerateProductResponse {
     product: string;
-    image: GeneratedImage;
+    imagePrompt: GeneratedImage;
 }

@@ -16,6 +16,6 @@ export const UI_MESSAGES = {
 export const CHAT_CONFIG = {
     IMAGE: {
         DEFAULT_PROMPT: `A futuristic modular car, as a product designer creating a render of it with studio lighting following japanese kintsugi design philosophy as the shell of the car, it should be slightly visible through translucent material.`,
-        SEPARATOR: "IMAGE:",
+        SEPARATOR: "IMAGE: ",
     }
 }

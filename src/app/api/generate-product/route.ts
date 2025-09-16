@@ -39,10 +39,12 @@ export async function POST(req: NextRequest) {
       catch: () => new GenerateTextError({ customMessage: "Error generating text" })
     });
 
-    console.log("Generated text", text);
+    const [product, imagePrompt] = text.split(CHAT_CONFIG.IMAGE.SEPARATOR); 
+
     const response = yield* Effect.try({
       try: () => NextResponse.json({
-        product: text,
+        product,
+        imagePrompt,
       }, { status: 200 }),
       catch: () => new JsonError({ customMessage: "Error parsing generated text" })
     });
