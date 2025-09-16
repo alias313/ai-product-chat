@@ -13,7 +13,6 @@ import { JsonError, GenerateTextError } from "@/lib/errors";
 export async function POST(req: NextRequest) {
   const mainEffect = Effect.gen(function* () {
     const apiKeyRedacted = yield* Config.redacted("GOOGLE_GENERATIVE_AI_API_KEY");
-    const apiKey = Redacted.value(apiKeyRedacted);
 
     const { userMessage, conversationHistory, isStart }: GenerateProductRequest = yield* Effect.tryPromise({
       try: () => req.json(),
@@ -29,7 +28,7 @@ export async function POST(req: NextRequest) {
 
       prompt = PROMPTS.CONTINUOUS_PROMPT(conversationText, userMessage);
     }
-    const googleClient = createGoogleGenerativeAI({ apiKey });
+    const googleClient = createGoogleGenerativeAI({ apiKey: Redacted.value(apiKeyRedacted) });
 
     const { text } = yield* Effect.tryPromise({
       try: () => generateText({
