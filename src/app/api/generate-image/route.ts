@@ -4,7 +4,6 @@ import { generateText } from "ai";
 
 import { type NextRequest, NextResponse } from "next/server";
 
-import { CHAT_CONFIG } from "@/lib/consts";
 import { PROMPTS } from "@/lib/prompts";
 import { GenerateImageRequest } from "@/lib/types";
 
