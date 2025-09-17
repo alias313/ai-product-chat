@@ -1,36 +1,8 @@
 "use client";
-import Image from "next/image";
-import { useEffect } from "react";
+import { useProductChat } from "./hooks/use-product-chat";
 
 export default function Home() {
-  useEffect(() => {
-    fetch("/api/generate-product", {
-      method: "POST",
-      body: JSON.stringify({
-        userMessage: "I want to design a modular car",
-        conversationHistory: [],
-        isStart: true,
-      }),
-    }).then(res => res.json())
-      .then(data => {
-        console.log("Generated image prompt", data.imagePrompt);
-        fetch("/api/generate-image", {
-          method: "POST",
-          body: JSON.stringify({
-            imagePrompt: data.imagePrompt,
-          }),
-        }).then(res => res.json())
-          .then(imageData => {
-            console.log("Generated image", imageData);
-          })
-          .catch(error => {
-            console.error("Error generating image", error);
-          });
-      })
-      .catch(error => {
-        console.error("Error generating product", error);
-      });
-  })
+  const { messages, input, isLoading, startChat, handleSubmit, handleInputChange } = useProductChat();
   return (
     <div className="font-sans min-h-screen p-8">
       Product design chat app
