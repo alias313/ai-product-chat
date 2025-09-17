@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
 
     const { text } = yield* Effect.tryPromise({
       try: () => generateText({
-        model: googleClient("gemini-2.5-flash"),
+        model: googleClient("gemini-2.5-flash-lite"),
         prompt,
       }),
       catch: () => new GenerateTextError({ customMessage: "Error generating text" })
