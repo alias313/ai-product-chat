@@ -16,6 +16,8 @@ export const PROMPTS = {
   
   Be concise and professional. Analyze the design evolution and ALWAYS end by engaging the user with design-focused questions like "What materials would you prefer?", "How do you envision the user interaction?", "What's the target market for this design?", "What aesthetic direction appeals to you?" to keep the design conversation flowing.
 
+  Remember, maximum 50 words.
+
   IMPORTANT: At the end, ALWAYS include a separated line that starts EXACTLY with "IMAGE:" followed by a short description in english to generate a professional product design visualization (maximum 50 words). This line is MANDATORY.
   `,
 

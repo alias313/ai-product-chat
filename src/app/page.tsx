@@ -1,22 +1,33 @@
 "use client";
 import { useProductChat } from "./hooks/use-product-chat";
-import { ChatLoader } from "./components/chat-loader";
 import { ChatMessage } from "./components/chat-message";
+import { ChatInput } from "./components/chat-input";
+import { Conversation, ConversationContent } from "@/components/ai-elements/conversation";
 
 export default function Home() {
-  const { messages, input, isLoading, startChat, handleSubmit, handleInputChange } = useProductChat();
+  const { messages, input, isLoading, handleSubmit, handleInputChange } = useProductChat();
   return (
-    <div className="font-sans min-h-screen p-8 max-w-xl mx-auto">
-      {
-        isLoading && (
-          <ChatLoader />
-        )
-      }
-      {
-        messages.map((message) => (
-          <ChatMessage key={message.id} message={message} />
-        ))
-      }
+    <div className="font-sans h-screen mx-auto overflow-hidden">
+      <div className="flex flex-col h-full">
+        <Conversation>
+          <ConversationContent className="max-w-xl mx-auto">
+            {
+              messages.map((message) => (
+                <ChatMessage key={message.id} message={message} />
+              ))
+            }
+          </ConversationContent>
+        </Conversation>
+
+        <div className="max-w-2xl w-full mx-auto pb-4">
+          <ChatInput
+            input={input}
+            onInputChange={handleInputChange}
+            onSubmit={handleSubmit}
+            isLoading={isLoading}
+          />
+        </div>
+      </div>
     </div>
   );
 }
