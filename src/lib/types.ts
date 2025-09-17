@@ -1,36 +1,36 @@
 export interface Message {
-    id: string;
-    content: string;
-    role: 'user' | 'assistant';
-    image?: string;
-    imageLoading?: string;
+  id: string;
+  content: string;
+  role: 'user' | 'assistant';
+  image?: string;
+  imageLoading?: boolean;
 }
 
 
 
 export interface GeneratedImage {
-    base64Data: string;
-    mediaType: string;
-    uint8ArrayData?: Uint8Array;
+  base64Data: string;
+  mediaType: string;
+  uint8ArrayData?: Uint8Array;
 }
 
 export interface ConversationMessage {
-    role: 'user' | 'assistant';
-    content: string;
+  role: 'user' | 'assistant';
+  content: string;
 }
 
 export interface GenerateProductRequest {
-    userMessage: string;
-    conversationHistory: ConversationMessage[];
-    isStart: boolean;
+  userMessage: string;
+  conversationHistory: ConversationMessage[];
+  isStart: boolean;
 }
 
 
 export interface GenerateProductResponse {
-    product: string;
-    imagePrompt: GeneratedImage;
+  product: string;
+  imagePrompt: GeneratedImage;
 }
 
 export interface GenerateImageRequest {
-    imagePrompt: string;
+  imagePrompt: string;
 }
