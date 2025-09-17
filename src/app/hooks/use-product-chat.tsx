@@ -91,6 +91,7 @@ export function useProductChat() {
 
     setIsLoading(true);
     setMessages(prevMessages => [...prevMessages, userMessage]);
+    setInput("");
     
     try {
       const response = await fetch("/api/generate-product", {
