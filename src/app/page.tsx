@@ -13,6 +13,7 @@ export default function Home() {
       }),
     }).then(res => res.json())
       .then(data => {
+        console.log("Generated image prompt", data.imagePrompt);
         fetch("/api/generate-image", {
           method: "POST",
           body: JSON.stringify({

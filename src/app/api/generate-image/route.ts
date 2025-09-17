@@ -18,14 +18,15 @@ export async function POST(req: NextRequest) {
     })
 
     const prompt = PROMPTS.GENERATE_IMAGE(imagePrompt);
+    console.log(prompt);
     const { files } = yield* Effect.tryPromise({
       try: () => generateText({
         model: google("gemini-2.5-flash-image-preview"),
         prompt,
         providerOptions: {
-            google: {
-                responseModalities: ["IMAGE"]
-            }
+          google: {
+            responseModalities: ["IMAGE"]
+          }
         }
       }),
       catch: (error) => new GenerateImageError({ customMessage: `Error generating image ${error}` })
