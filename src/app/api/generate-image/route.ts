@@ -1,5 +1,5 @@
-import { Effect, Config, Redacted } from "effect";
-import { createGoogleGenerativeAI } from "@ai-sdk/google";
+import { Effect } from "effect";
+import { google } from "@ai-sdk/google";
 import { generateText } from "ai";
 
 import { type NextRequest, NextResponse } from "next/server";
@@ -11,19 +11,16 @@ import { JsonError, GenerateImageError } from "@/lib/errors";
 
 export async function POST(req: NextRequest) {
   const mainEffect = Effect.gen(function* () {
-    const apiKeyRedacted = yield* Config.redacted("GOOGLE_GENERATIVE_AI_API_KEY");
 
     const { imagePrompt }: GenerateImageRequest = yield* Effect.tryPromise({
       try: () => req.json(),
       catch: () => new JsonError({ customMessage: "Error parsing request body" })
     })
 
-    const googleClient = createGoogleGenerativeAI({ apiKey: Redacted.value(apiKeyRedacted) });
-
     const prompt = PROMPTS.GENERATE_IMAGE(imagePrompt);
     const { files } = yield* Effect.tryPromise({
       try: () => generateText({
-        model: googleClient("gemini-2.5-flash-image-preview"),
+        model: google("gemini-2.5-flash-image-preview"),
         prompt,
         providerOptions: {
             google: {
