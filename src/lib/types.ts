@@ -2,7 +2,7 @@ export interface Message {
   id: string;
   content: string;
   role: 'user' | 'assistant';
-  image?: string;
+  image?: GeneratedImage;
   imageLoading?: boolean;
 }
 
