@@ -1,48 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import type { Message } from "@/lib/types";
 
 export function useProductChat() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  useEffect(() => {
-    startChat();
-  }, []);
-
-  const startChat = async () => {
-    setIsLoading(true);
-
-    try {
-      const response = await fetch("/api/generate-product", {
-        method: "POST",
-        body: JSON.stringify({ isStart: true }),
-      });
-
-
-      if (!response.ok) {
-        throw new Error("Failed to generate product");
-      }
-
-      const data = await response.json();
-
-      const messageId = crypto.randomUUID();
-
-      const newMessage: Message = {
-        id: messageId,
-        content: data.product,
-        role: "assistant",
-        imageLoading: true,
-      };
-
-      setMessages([newMessage]);
-      generateImage(messageId, data.imagePrompt);
-    } catch (error) {
-      console.error("Error generating product", error);
-    } finally {
-      setIsLoading(false);
-    }
-  }
 
   const generateImage = async (messageId: string, imagePrompt: string) => {
     try {
@@ -129,5 +91,5 @@ export function useProductChat() {
     setInput(value);
   }
 
-  return { messages, input, isLoading, startChat, submitMessage, updateInput }
+  return { messages, input, isLoading, submitMessage, updateInput }
 }

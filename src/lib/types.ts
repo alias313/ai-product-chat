@@ -22,7 +22,6 @@ export interface ConversationMessage {
 export interface GenerateProductRequest {
   userMessage: string;
   conversationHistory: ConversationMessage[];
-  isStart: boolean;
 }
 
 

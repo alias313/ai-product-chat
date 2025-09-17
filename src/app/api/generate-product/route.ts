@@ -14,20 +14,16 @@ export async function POST(req: NextRequest) {
   const mainEffect = Effect.gen(function* () {
     const apiKeyRedacted = yield* Config.redacted("GOOGLE_GENERATIVE_AI_API_KEY");
 
-    const { userMessage, conversationHistory, isStart }: GenerateProductRequest = yield* Effect.tryPromise({
+    const { userMessage, conversationHistory }: GenerateProductRequest = yield* Effect.tryPromise({
       try: () => req.json(),
       catch: () => new JsonError({ customMessage: "Error parsing request body" })
     })
 
-    let prompt: string = PROMPTS.INITIAL_PROMPT;
+    const conversationText = (conversationHistory ?? []).map(
+      (message) => `${message.role}: ${message.content}`
+    ).join("\n");
 
-    if (!isStart) {
-      const conversationText = conversationHistory.map(
-        (message) => `${message.role}: ${message.content}`
-      ).join("\n");
-
-      prompt = PROMPTS.CONTINUOUS_PROMPT(conversationText, userMessage);
-    }
+    const prompt = PROMPTS.CONTINUOUS_PROMPT(conversationText, userMessage);
     const googleClient = createGoogleGenerativeAI({ apiKey: Redacted.value(apiKeyRedacted) });
 
     const { text } = yield* Effect.tryPromise({
