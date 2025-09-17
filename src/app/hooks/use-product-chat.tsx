@@ -78,14 +78,12 @@ export function useProductChat() {
     }
   }
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (!input.trim() || isLoading) return;
+  const submitMessage = async (messageText: string) => {
+    if (!messageText.trim() || isLoading) return;
 
     const userMessage: Message = {
       id: crypto.randomUUID(),
-      content: input,
+      content: messageText,
       role: "user",
     }
 
@@ -97,7 +95,7 @@ export function useProductChat() {
       const response = await fetch("/api/generate-product", {
         method: "POST",
         body: JSON.stringify({
-          userMessage: input,
+          userMessage: messageText,
           conversationHistory: messages,
           isStart: false,
         }),
@@ -127,9 +125,9 @@ export function useProductChat() {
     }
   }
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setInput(e.target.value);
+  const updateInput = (value: string) => {
+    setInput(value);
   }
 
-  return { messages, input, isLoading, startChat, handleSubmit, handleInputChange }
+  return { messages, input, isLoading, startChat, submitMessage, updateInput }
 }

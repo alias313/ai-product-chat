@@ -5,7 +5,16 @@ import { ChatInput } from "./components/chat-input";
 import { Conversation, ConversationContent } from "@/components/ai-elements/conversation";
 
 export default function Home() {
-  const { messages, input, isLoading, handleSubmit, handleInputChange } = useProductChat();
+  const { messages, input, isLoading, submitMessage, updateInput } = useProductChat();
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    submitMessage(input);
+  }
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    updateInput(e.target.value);
+  }
   return (
     <div className="font-sans h-screen mx-auto overflow-hidden">
       <div className="flex flex-col h-full">
