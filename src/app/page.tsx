@@ -2,6 +2,7 @@
 import { useProductChat } from "./hooks/use-product-chat";
 import { ChatMessage } from "./components/chat-message";
 import { ChatInput } from "./components/chat-input";
+import { ChatLoader } from "./components/chat-loader";
 import { Conversation, ConversationContent } from "@/components/ai-elements/conversation";
 
 export default function Home() {
@@ -15,6 +16,8 @@ export default function Home() {
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     updateInput(e.target.value);
   }
+
+  const showLoader = isLoading && (messages.length === 0 || messages[messages.length - 1].role === "user");
   return (
     <div className="font-sans h-screen mx-auto overflow-hidden">
       <div className="flex flex-col h-full">
@@ -25,6 +28,7 @@ export default function Home() {
                 <ChatMessage key={message.id} message={message} />
               ))
             }
+            {showLoader && <ChatLoader />}
           </ConversationContent>
         </Conversation>
 
