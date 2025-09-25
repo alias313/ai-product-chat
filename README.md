@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI Product Designer
 
-## Getting Started
+A Next.js app that helps you ideate product designs via a chat with Google Gemini. Each assistant reply includes guidance and a generated image of the concept.
 
-First, run the development server:
+## Prerequisites
+
+- Node.js 18+ (recommended 20+)
+- Package manager: pnpm (recommended) or npm
+
+## 1) Install dependencies
 
 ```bash
-npm run dev
+pnpm install
 # or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 2) Add your Google Gemini API key
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Create a `.env.local` file in the project root and add:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+GOOGLE_GENERATIVE_AI_API_KEY=your_api_key_here
+```
 
-## Learn More
+You can obtain the API key in two ways:
 
-To learn more about Next.js, take a look at the following resources:
+### Option A — Google AI Studio
+1. Go to `https://aistudio.google.com/app/apikey`.
+2. Create an API key and copy it.
+3. Paste it into `.env.local` as shown above.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Option B — Google Cloud (this is the one that worked for me)
+1. Go to `https://console.cloud.google.com/` and select or create a project.
+2. In “APIs & Services”, enable the “Gemini API” (or Generative Language API where applicable).
+3. Go to “Credentials” → “Create credentials” → “API key”.
+4. Copy the key and paste it into `.env.local`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Note: You may need to enable billing and ensure the Gemini API is available in your region.
 
-## Deploy on Vercel
+## 3) Run the dev server
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+pnpm dev
+# or
+npm run dev
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Open `http://localhost:3000` in your browser.
+
+## How to use
+
+1. Type your product idea/prompt in the input box.
+2. Press Enter or click the send button.
+3. You’ll see a loader while the assistant generates text; the product image then loads shortly after.
+4. Continue the conversation to iterate on the design.
